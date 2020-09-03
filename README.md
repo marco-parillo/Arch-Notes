@@ -1,5 +1,10 @@
 # Arch-Notes
 
+## REISUB
+```
+$ echo kernel.sysrq=1 | sudo tee /etc/sysctl.d/99-sysctl.conf
+```
+
 ## Printing
 
 ```
