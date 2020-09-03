@@ -38,4 +38,8 @@ Optional dependencies for hplip
     python-pyqt5: for running GUI and hp-toolbox
     libusb: for advanced usb support [installed]
     wget: for network support [installed]
+    
+    
+$ sudo pacman -S python-pyqt5
+$ hp-setup -u
 ```
