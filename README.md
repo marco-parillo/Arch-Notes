@@ -41,9 +41,11 @@ Optional dependencies for hplip
     
     
 $ sudo pacman -S python-pyqt5
-$ hp-setup -u
 $ sudo pacman -S cups
 $ sudo pacman -S print-manager
 $ sudo pacman -S system-config-printer
+$ systemctl enable org.cups.cupsd.service
+$ systemctl start org.cups.cupsd.service
+$ hp-setup -u
 
 ```
