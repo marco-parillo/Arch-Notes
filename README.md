@@ -5,6 +5,12 @@
 $ echo kernel.sysrq=1 | sudo tee /etc/sysctl.d/99-sysctl.conf
 ```
 
+## Dual-Booting
+If it takes another OS a while to [update GRUB](https://wiki.archlinux.org/index.php/GRUB#Arch_not_found_from_other_OS), install lsb-release 
+```
+$sudo pacman -S lsb-release
+```
+
 ## Printing
 
 ```
