@@ -4,9 +4,16 @@
 ```
 $ echo kernel.sysrq=1 | sudo tee /etc/sysctl.d/99-sysctl.conf
 ```
-# Spell-checking
+
+## Spell-checking
 ```
 $ sudo pacman -S hunspell-en_US hunspell
+```
+## Building Packages
+```
+$ sudo pacman -S git
+$ sudo pacman -S base-devel --needed
+
 ```
 
 ## Dual-Booting
