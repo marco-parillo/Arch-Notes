@@ -13,7 +13,6 @@ $ sudo pacman -S hunspell-en_US hunspell
 ```
 $ sudo pacman -S git
 $ sudo pacman -S base-devel --needed
-
 ```
 
 ## Dual-Booting
@@ -21,6 +20,9 @@ If it takes another OS a while to [update GRUB](https://wiki.archlinux.org/index
 ```
 $ sudo pacman -S lsb-release
 ```
+
+## Turn off Hibernation
+See [no-hibernate.conf](https://github.com/marco-parillo/Arch-Notes/blob/master/no-hibernate.conf)
 
 ## Printing
 
