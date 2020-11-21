@@ -68,8 +68,13 @@ $ sudo pacman -S python-pyqt5
 $ sudo pacman -S cups
 $ sudo pacman -S print-manager
 $ sudo pacman -S system-config-printer
-$ systemctl enable org.cups.cupsd.service
-$ systemctl start org.cups.cupsd.service
+# was $ systemctl enable org.cups.cupsd.service
+# was $ systemctl start org.cups.cupsd.service
+$ systemctl enable cups.service
+Created symlink /etc/systemd/system/printer.target.wants/cups.service → /usr/lib/systemd/system/cups.service.
+Created symlink /etc/systemd/system/sockets.target.wants/cups.socket → /usr/lib/systemd/system/cups.socket.
+Created symlink /etc/systemd/system/multi-user.target.wants/cups.path → /usr/lib/systemd/system/cups.path.
+$ systemctl start cups.service
 $ hp-setup -u
 
 ```
