@@ -22,7 +22,21 @@ $ sudo pacman -S lsb-release
 ```
 
 ## Turn off Hibernation
-See [no-hibernate.conf](https://github.com/marco-parillo/Arch-Notes/blob/master/no-hibernate.conf)
+Use [Polkit](https://wiki.archlinux.org/index.php/Polkit#Disable_suspend_and_hibernate)
+```
+sudo vim /etc/polkit-1/rules.d/10-disable-suspend.rules
+i
+polkit.addRule(function(action, subject) {
+    if (action.id == "org.freedesktop.login1.suspend" ||
+        action.id == "org.freedesktop.login1.suspend-multiple-sessions" ||
+        action.id == "org.freedesktop.login1.hibernate" ||
+        action.id == "org.freedesktop.login1.hibernate-multiple-sessions")
+    {
+        return polkit.Result.NO;
+    }
+});
+escape :wq
+```
 
 ## Printing
 
