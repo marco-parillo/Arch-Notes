@@ -21,6 +21,10 @@ If it takes another OS a while to [update GRUB](https://wiki.archlinux.org/index
 $ sudo pacman -S lsb-release
 ```
 
+## ThinkPad Fan
+[Install](https://wiki.archlinux.org/index.php/Lenovo_ThinkPad_T420#Fans) from the AUR [thinkfan](https://aur.archlinux.org/packages/thinkfan/).
+
+
 ## Turn off Hibernation
 Use [Polkit](https://wiki.archlinux.org/index.php/Polkit#Disable_suspend_and_hibernate)
 ```
