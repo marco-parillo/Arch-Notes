@@ -27,6 +27,7 @@ $ sudo pacman -S lsb-release
 $ sudo pacman -S acpi_call-dkms
 $ sudo pacman -S tp_smapi
 ```
+Maybe [tp_smapi-dkms](https://aur.archlinux.org/packages/tp_smapi-dkms/) but tp_smapi-dkms and tp_smapi are in conflict
 
 
 ## Turn off Hibernation
