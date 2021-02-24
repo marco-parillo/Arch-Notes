@@ -23,6 +23,10 @@ $ sudo pacman -S lsb-release
 
 ## ThinkPad Fan
 [Install](https://wiki.archlinux.org/index.php/Lenovo_ThinkPad_T420#Fans) from the AUR [thinkfan](https://aur.archlinux.org/packages/thinkfan/).
+```
+$ sudo pacman -S acpi_call-dkms
+$ sudo pacman -S tp_smapi
+```
 
 
 ## Turn off Hibernation
