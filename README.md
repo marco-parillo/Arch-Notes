@@ -20,6 +20,10 @@ If it takes another OS a while to [update GRUB](https://wiki.archlinux.org/index
 ```
 $ sudo pacman -S lsb-release
 ```
+Edit /etc/default/grub by manually adding the line:
+```
+GRUB_DISABLE_OS_PROBER=false
+```
 
 ## ThinkPad Fan
 [Install](https://wiki.archlinux.org/index.php/Lenovo_ThinkPad_T420#Fans) from the AUR [thinkfan](https://aur.archlinux.org/packages/thinkfan/).
