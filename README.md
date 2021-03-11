@@ -17,6 +17,12 @@ systemctl enable --now systemd-networkd.service
 ```
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
+1. After reboot, enable networking
+
+```
+ip link
+dhcpcd ens33
+```
 
 ## REISUB
 ```
