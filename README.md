@@ -1,5 +1,9 @@
 # Arch-Notes
 
+## Missed Installation Steps
+
+[dhcpcd](https://wiki.archlinux.org/index.php/Dhcpcd)
+
 ## REISUB
 ```
 $ echo kernel.sysrq=1 | sudo tee /etc/sysctl.d/99-sysctl.conf
