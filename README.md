@@ -6,7 +6,11 @@
 1. Add [dhcpcd](https://wiki.archlinux.org/index.php/Dhcpcd)
 
 ```
-pacstrap /mnt base linux linux-firmware vim 
+pacstrap /mnt base linux linux-firmware vim dhcpcd
+```
+1. Enable
+```
+systemctl enable --now systemd-networkd.service
 ```
 
 ## REISUB
