@@ -12,6 +12,11 @@ pacstrap /mnt base linux linux-firmware vim dhcpcd
 ```
 systemctl enable --now systemd-networkd.service
 ```
+1. Grub
+
+```
+grub-mkconfig -o /boot/grub/grub.cfg
+```
 
 ## REISUB
 ```
