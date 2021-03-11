@@ -2,7 +2,12 @@
 
 ## Missed Installation Steps
 
-[dhcpcd](https://wiki.archlinux.org/index.php/Dhcpcd)
+1. [Make Partition Bootable](https://wiki.archlinux.org/index.php/Fdisk#Make_a_partition_bootable.)
+1. Add [dhcpcd](https://wiki.archlinux.org/index.php/Dhcpcd)
+
+```
+pacstrap /mnt base linux linux-firmware vim 
+```
 
 ## REISUB
 ```
