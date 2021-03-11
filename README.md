@@ -22,6 +22,14 @@ grub-mkconfig -o /boot/grub/grub.cfg
 ```
 ip link
 dhcpcd ens33
+vim /etc/systemd/network/20-wired.network
+i
+[Match]
+Name=ens33
+
+[Network]
+DHCP=yes
+Escape : wq
 ```
 
 ## REISUB
