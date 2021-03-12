@@ -31,6 +31,13 @@ Name=ens33
 DHCP=yes
 Escape : wq
 ```
+1. Add User, uncomment wheel, then enable sudo.
+```
+
+pacman -S sudo
+EDITOR=vim visudo
+usermod –aG wheel mparillo
+```
 
 ## REISUB
 ```
