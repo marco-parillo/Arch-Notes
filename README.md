@@ -45,6 +45,11 @@ EliteBook 8440p (Garuda and Anarchy)
 Device-2: Intel Centrino Ultimate-N 6300 driver: iwlwifi
 IF: wlo1 state: up mac: 00:24:d7:65:9c:74
 ```
+EliteBook 8460p (Manjaro)
+```
+Device-2: Intel Centrino Ultimate-N 6300 driver: iwlwifi 
+IF: wlo1 state: up mac: 24:77:03:6f:04:a0 
+```
 
 1. Add User, uncomment wheel, then enable sudo.
 ```
