@@ -38,17 +38,17 @@ Escape : wq
 T410:
 ```
 Device-2: Intel Centrino Advanced-N 6200 driver: iwlwifi 
-IF: wlp3s0 state: up mac: 00:27:10:5a:f5:c8 
+IF: wlp3s0 state: up mac: 
 ```
 EliteBook 8440p (Garuda and Anarchy)
 ```
 Device-2: Intel Centrino Ultimate-N 6300 driver: iwlwifi
-IF: wlo1 state: up mac: 00:24:d7:65:9c:74
+IF: wlo1 state: up mac: 
 ```
 EliteBook 8460p (Manjaro)
 ```
 Device-2: Intel Centrino Ultimate-N 6300 driver: iwlwifi 
-IF: wlo1 state: up mac: 24:77:03:6f:04:a0 
+IF: wlo1 state: up mac: 
 ```
 
 1. Add User, uncomment wheel, then enable sudo.
