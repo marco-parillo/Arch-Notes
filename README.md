@@ -33,11 +33,17 @@ DHCP=yes
 Escape : wq
 ```
 1. Wireless (WPA/WPA2 Personal):
+
+
 T410:
 ```
 Device-2: Intel Centrino Advanced-N 6200 driver: iwlwifi 
 IF: wlp3s0 state: up mac: 00:27:10:5a:f5:c8 
-
+```
+EliteBook 8440p (Garuda)
+```
+Device-2: Intel Centrino Ultimate-N 6300 driver: iwlwifi
+IF: wlo1 state: up mac: 00:24:d7:65:9c:74
 ```
 
 1. Add User, uncomment wheel, then enable sudo.
