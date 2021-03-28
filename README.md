@@ -18,7 +18,7 @@ systemctl enable --now systemd-networkd.service
 ```
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
-1. After reboot, enable networking
+1. After reboot, enable wired networking
 
 ```
 ip link
@@ -32,6 +32,9 @@ Name=ens33
 DHCP=yes
 Escape : wq
 ```
+1. Wireless (WPA/WPA2 Personal):
+
+
 1. Add User, uncomment wheel, then enable sudo.
 ```
 
