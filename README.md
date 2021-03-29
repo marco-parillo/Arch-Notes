@@ -9,7 +9,7 @@
 4. Maybe add [wpa_supplicant](https://archlinux.org/packages/?name=wpa_supplicant)
 
 ```
-pacstrap /mnt base linux linux-firmware vim dhcpcd grub wpa_supplicant
+pacstrap /mnt base linux linux-firmware vim dhcpcd grub efibootmgr wpa_supplicant
 ```
 1. Enable
 ```
