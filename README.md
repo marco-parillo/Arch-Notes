@@ -4,10 +4,11 @@
 
 1. [Make Partition Bootable](https://wiki.archlinux.org/index.php/Fdisk#Make_a_partition_bootable.)
 1. Add [dhcpcd](https://wiki.archlinux.org/index.php/Dhcpcd)
-1. Maybe add [wpa_supplicant](https://archlinux.org/packages/?name=wpa_supplicant)
+2. Add [grub](https://wiki.archlinux.org/index.php/GRUB)
+3. Maybe add [wpa_supplicant](https://archlinux.org/packages/?name=wpa_supplicant)
 
 ```
-pacstrap /mnt base linux linux-firmware vim dhcpcd wpa_supplicant
+pacstrap /mnt base linux linux-firmware vim dhcpcd grub wpa_supplicant
 ```
 1. Enable
 ```
