@@ -5,7 +5,8 @@
 1. [Make Partition Bootable](https://wiki.archlinux.org/index.php/Fdisk#Make_a_partition_bootable.)
 1. Add [dhcpcd](https://wiki.archlinux.org/index.php/Dhcpcd)
 2. Add [grub](https://wiki.archlinux.org/index.php/GRUB)
-3. Maybe add [wpa_supplicant](https://archlinux.org/packages/?name=wpa_supplicant)
+3. Add [efibootmgr](https://wiki.archlinux.org/index.php/GRUB#Installation_2)
+4. Maybe add [wpa_supplicant](https://archlinux.org/packages/?name=wpa_supplicant)
 
 ```
 pacstrap /mnt base linux linux-firmware vim dhcpcd grub wpa_supplicant
