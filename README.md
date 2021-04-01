@@ -7,6 +7,7 @@
 2. Add [grub](https://wiki.archlinux.org/index.php/GRUB)
 3. Add [efibootmgr](https://wiki.archlinux.org/index.php/GRUB#Installation_2)
 4. Maybe add [wpa_supplicant](https://archlinux.org/packages/?name=wpa_supplicant)
+5. Maybe add [XDG user directories](https://archlinux.org/packages/?name=xdg-user-dirs)
 
 ```
 pacstrap /mnt base linux linux-firmware vim dhcpcd grub efibootmgr wpa_supplicant
@@ -55,7 +56,6 @@ IF: wlo1 state: up mac:
 
 1. Add User, uncomment wheel, then enable sudo.
 ```
-
 pacman -S sudo
 EDITOR=vim visudo
 usermod –aG wheel mparillo
