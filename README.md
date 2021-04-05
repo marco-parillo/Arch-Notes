@@ -6,36 +6,24 @@
 1. Add [dhcpcd](https://wiki.archlinux.org/index.php/Dhcpcd)
 2. Add [grub](https://wiki.archlinux.org/index.php/GRUB)
 3. Add [efibootmgr](https://wiki.archlinux.org/index.php/GRUB#Installation_2)
-4. Maybe add [wpa_supplicant](https://archlinux.org/packages/?name=wpa_supplicant)
-5. Maybe add [XDG user directories](https://archlinux.org/packages/?name=xdg-user-dirs)
-6. Maybe add [Network Manager](https://wiki.archlinux.org/index.php/NetworkManager#KDE_Plasma)
+4. Add [XDG user directories](https://archlinux.org/packages/?name=xdg-user-dirs)
 
 ```
 pacstrap /mnt base linux linux-firmware vim sudo grub xdg-user-dirs plasma-meta kde-applications-meta sddm sddm-kcm
 ```
-1. Enable
-```
-systemctl enable --now systemd-networkd.service
-```
+
 1. Grub
 
 ```
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
-1. After reboot, enable wired networking
+1. After reboot, enable wired networking and SDDM
 
 ```
-ip link
-dhcpcd ens33
-vim /etc/systemd/network/20-wired.network
-i
-[Match]
-Name=ens33
-
-[Network]
-DHCP=yes
-Escape : wq
+systemctl enable NetworkManager.service
+systemctl enable sddm.service
 ```
+
 1. Wireless (WPA/WPA2 Personal):
 
 
