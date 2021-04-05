@@ -1,0 +1,58 @@
+<html>
+<head>
+</head>
+<body>
+			<center><h3>UEFI Setup</h3></center>
+			<ul>
+				<li><h4>Partitioning</h4>
+					# parted /dev/<b>HARD DRIVE</b> (we'll assume /dev/sda)<br>
+					(parted) mklabel gpt (if not already GPT)<br>
+					(parted) mkpart ESP fat32 1MiB 513MiB<br>
+					(parted) set 1 boot on<br>
+					(parted) mkpart primary ext4 513MiB 100%<br>
+					# mkfs.fat -F32 /dev/<b>sda1</b> (fat32 for boot)<br>
+					# mkfs.ext4 /dev/<b>sda2</b> (sda2 will be your root)<br>
+				</li>
+				<li><h4>Mounting</h4>
+					mount /dev/sda2 /mnt (the ext4 root partition)<br>
+					mkdir -p /mnt/boot<br>
+					mount /dev/sda1 /mnt/boot<br>
+				</li>
+				<li><h4>Installation</h4>
+					# pacstrap -i /mnt base base-devel [additional packages]<br>
+					# genfstab -U /mnt >> /mnt/etc/fstab<br>
+					# arch-chroot /mnt /bin/bash<br>
+					# nano /etc/locale.gen<br>
+					 + en_US.UTF-8 UTF-8<br>
+					# locale-gen<br>
+					# nano /etc/locale.conf<br>
+					+ LANG=en_US.UTF-8<br>
+					# nano /etc/vconsole.conf<br>
+					+ KEYMAP=sv-latin1<br>
+					+ FONT=lat9w-16<br>
+					# ln -s /usr/share/zoneinfo/Europe/Stockholm /etc/localtime<br>
+					# hwclock --systohc --utc<br>
+				</li>
+				<li><h4>Boot options</h4>
+					# bootctl install (for UEFI boot)<br>
+					# nano /boot/loader/loader.conf<br>
+					= default arch<br>
+					= timeout 2<br>
+					= editor 0<br>
+					# <font color="red">blkid -s PARTUUID -o value /dev/<b>sda2</b> >> /boot/loader/entries/arch.conf <i>(the ext4 partition for <b>/</b> (aka: root))</i></font><br>
+					# nano /boot/loader/entries/arch.conf<br>
+					+ title    arch<br>
+					+ linux    /vmlinuz-linux<br>
+					+ initrd   /initramfs-linux.img<br>
+					+ options  root=PARTUUID=[ID] rw<br>
+				</li>
+				<li><h4>Finish up</h4>
+					# useradd -m -G wheel -s /bin/bash [username]<br>
+					# passwd [username]<br>
+					# passwd<br>
+					# exit<br>
+					# umount -R /mnt; reboot
+				</li>
+			</ul>
+</body>
+</html>
