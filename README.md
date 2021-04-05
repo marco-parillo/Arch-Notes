@@ -11,7 +11,7 @@
 6. Maybe add [Network Manager](https://wiki.archlinux.org/index.php/NetworkManager#KDE_Plasma)
 
 ```
-pacstrap /mnt base linux linux-firmware vim sudo grub efibootmgr wpa_supplicant
+pacstrap /mnt base linux linux-firmware vim sudo grub xdg-user-dirs plasma-meta kde-applications-meta sddm sddm-kcm
 ```
 1. Enable
 ```
