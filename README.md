@@ -57,8 +57,10 @@ $ echo kernel.sysrq=1 | sudo tee /etc/sysctl.d/99-sysctl.conf
 
 ## Spell-checking
 ```
-$ sudo pacman -S hunspell-en_US hunspell
+$ sudo pacman -S hunspell-en_us
 ```
+Note hunspell was already installed as a dependency.
+
 ## Building Packages
 ```
 $ sudo pacman -S git
