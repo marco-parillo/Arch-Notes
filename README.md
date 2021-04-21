@@ -43,7 +43,7 @@ Device-2: Intel Centrino Ultimate-N 6300 driver: iwlwifi
 IF: wlo1 state: up mac: 
 ```
 
-1. [Add User](https://wiki.archlinux.org/index.php/Users_and_groups), uncomment wheel, then enable sudo.
+1. [Add User](https://wiki.archlinux.org/index.php/Users_and_groups), [uncomment wheel, then enable sudo](https://wiki.archlinux.org/index.php/Sudo).
 ```
 pacman -S sudo
 EDITOR=vim visudo
