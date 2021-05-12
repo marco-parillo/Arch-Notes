@@ -12,19 +12,19 @@
 pacstrap /mnt base linux linux-firmware vim sudo grub xdg-user-dirs plasma-meta kde-applications-meta sddm sddm-kcm
 ```
 
-1. Grub
+### Grub
 
 ```
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
-1. After reboot, enable wired networking and SDDM
+### After reboot, enable wired networking and SDDM
 
 ```
 systemctl enable NetworkManager.service
 systemctl enable sddm.service
 ```
 
-1. Wireless (WPA/WPA2 Personal):
+### Wireless (WPA/WPA2 Personal):
 
 
 T410:
@@ -43,12 +43,16 @@ Device-2: Intel Centrino Ultimate-N 6300 driver: iwlwifi
 IF: wlo1 state: up mac: 
 ```
 
-1. [Add User](https://wiki.archlinux.org/index.php/Users_and_groups), [uncomment wheel, then enable sudo](https://wiki.archlinux.org/index.php/Sudo).
+### [Add User](https://wiki.archlinux.org/index.php/Users_and_groups), [uncomment wheel, then enable sudo](https://wiki.archlinux.org/index.php/Sudo).
 ```
 pacman -S sudo
 EDITOR=vim visudo
 usermod –aG wheel mparillo
 ```
+
+## Sync System Clock
+
+System Settings > Regional Settings > Date and Time > Set date and time automatically
 
 ## REISUB
 ```
