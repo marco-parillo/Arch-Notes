@@ -95,6 +95,9 @@ $ sudo pacman -S tp_smapi
 ```
 Maybe [tp_smapi-dkms](https://aur.archlinux.org/packages/tp_smapi-dkms/) but tp_smapi-dkms and tp_smapi are in conflict
 
+## CPU Overheating
+[Install and enable Thermald](https://wiki.archlinux.org/title/CPU_frequency_scaling#thermald)?
+
 
 ## Turn off Hibernation
 Use [Polkit](https://wiki.archlinux.org/index.php/Polkit#Disable_suspend_and_hibernate)
