@@ -9,7 +9,7 @@
 4. Add [XDG user directories](https://archlinux.org/packages/?name=xdg-user-dirs)
 
 ```
-pacstrap /mnt base linux linux-firmware vim sudo grub xdg-user-dirs plasma-meta kde-applications-meta sddm sddm-kcm
+pacstrap /mnt base linux linux-firmware vim sudo grub xdg-user-dirs plasma-meta kde-applications-meta sddm-kcm
 ```
 
 ### Grub
