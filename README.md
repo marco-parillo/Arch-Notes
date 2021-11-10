@@ -12,6 +12,15 @@
 pacstrap /mnt base linux linux-firmware vim sudo grub xdg-user-dirs plasma-meta kde-applications-meta sddm-kcm
 ```
 
+### Do I need to set the local hostname and localhost by configuring the hosts(5) file?
+
+```
+vim /etc/hosts
+127.0.0.1        localhost
+::1              localhost
+127.0.1.1        myhostname
+```
+
 ### Grub
 
 ```
