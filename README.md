@@ -53,11 +53,20 @@ IF: wlo1 state: up mac:
 ```
 
 ### [Add User](https://wiki.archlinux.org/index.php/Users_and_groups), [uncomment wheel, then enable sudo](https://wiki.archlinux.org/index.php/Sudo).
+
 ```
 pacman -S sudo
 EDITOR=vim visudo
 usermod –aG wheel mparillo
 ```
+## If after updating your ArchLinux your Plasma/X11 looks YUGE add
+
+```
+sudo vim /etc/sddm.conf
+[X11]  
+ServerArguments=-nolisten tcp -dpi 96
+```
+
 
 ## Sync System Clock
 
