@@ -55,6 +55,7 @@ IF: wlo1 state: up mac:
 ### [Add User](https://wiki.archlinux.org/index.php/Users_and_groups), [uncomment wheel, then enable sudo](https://wiki.archlinux.org/index.php/Sudo).
 
 ```
+useradd -m mparillo
 pacman -S sudo
 EDITOR=vim visudo
 usermod –aG wheel mparillo
