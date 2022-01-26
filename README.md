@@ -84,11 +84,14 @@ $ sudo pacman -S hunspell-en_us
 ```
 Note hunspell was already installed as a dependency.
 
-## Building Packages
+## Building AUR Packages
 ```
 $ sudo pacman -S git
 $ sudo pacman -S base-devel --needed
 ```
+
+## Virtualization
+KVM (the built-in Linux hypervisor) with [libvirt](https://wiki.archlinux.org/title/Libvirt) via virt-manager. 
 
 ## Dual-Booting
 If it takes another OS a while to [update GRUB](https://wiki.archlinux.org/index.php/GRUB#Arch_not_found_from_other_OS), install lsb-release 
