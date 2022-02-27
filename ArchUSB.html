@@ -1,0 +1,483 @@
+
+<!DOCTYPE html>
+<!-- arch-usb.html :: -->
+
+<html lang="en">
+<head>
+    <title>ArchLinux USB</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Guide to installing Arch Linux on a USB stick.">
+    <meta name="keywords" content="Linux, Arch Linux, USB, install, persistent">
+    <meta name="author" content="Chris Magyar">
+    <link rel="stylesheet" href="css/utheme.css">
+</head>
+<body>
+
+<div id="index">
+    <div class="p"><a href="index.html">about</a> |
+    <a href="arch-pi.txt" target="_blank">arch-pi</a> |
+    <span class="a">arch-usb</span> |
+    <a href="meditations.txt" target="_blank">meditations</a> |
+    <a href="https://arxiv.org/pdf/1610.01011.pdf" target="_blank">mirror symmetry</a> |
+    <a href="vim.txt" target="_blank">vim</a> |
+    <a href="https://github.com/arcmags/ramroot" target="_blank">ramroot</a></div>
+    2022-01-29<br>
+    Chris Magyar
+</div>
+<br>
+
+<pre id="title">   _          _    _    _                _   _ ___ ___
+  /_\  _ _ __| |_ | |  (_)_ _ _  ___ __ | | | / __| _ )
+ / _ \| '_/ _| ' \| |__| | ' \ || \ \ / | |_| \__ \ _ \
+/_/ \_\_| \__|_||_|____|_|_||_\_,_/_\_\  \___/|___/___/
+</pre>
+
+<div id="nav" class="box">
+<a href="arch-usb-begin.html" target="_self">Before You Begin</a><br>
+<a href="arch-usb-iso.html" target="_self">Live ISO</a><br>
+<span class="a">Arch USB</span>
+<hr>
+<a href="#prepare" target="_self">USB Preparation</a>
+    <ul><li><a href="#wipe" target="_self">wipe</a></li>
+    <li><a href="#partition" target="_self">partition</a></li>
+    <li><a href="#format" target="_self">format</a></li></ul>
+<a href="#base" target="_self">Base System</a>
+    <ul><li><a href="#mount" target="_self">mount</a></li>
+    <li><a href="#pacstrap" target="_self">pacstrap</a></li>
+    <li><a href="#fstab" target="_self">fstab</a></li></ul>
+<a href="#configure" target="_self">Configuration</a>
+    <ul><li><a href="#chroot" target="_self">chroot</a></li>
+    <li><a href="#locale" target="_self">locale</a></li>
+    <li><a href="#hostname" target="_self">hostname</a></li>
+    <li><a href="#mount_options" target="_self">mount options</a></li>
+    <li><a href="#journal_config" target="_self">journal</a></li>
+    <li><a href="#bootloader" target="_self">bootloader</a></li>
+    <li><a href="#interface_names" target="_self">interface names</a></li>
+    <li><a href="#networking" target="_self">networking</a></li>
+    <li><a href="#battery" target="_self">battery</a></li>
+    <li><a href="#root" target="_self">password</a></li>
+    <li><a href="#user" target="_self">user</a></li>
+    <li><a href="#sudo" target="_self">sudo</a></li>
+    <li><a href="#logout" target="_self">logout</a></li></ul>
+</div>
+
+<div class="p">This page explains how to install Arch Linux on a USB flash drive.  The end
+result is a persistent installation identical to that on a normal hard drive
+along with several performance optimizations aimed at running Linux on removable
+flash media.</div>
+
+<div class="p">The only packages explicitly installed besides <i>linux</i>, <i>linux-firmware</i>, and
+<i>base</i> are:
+<ul>
+    <li><i>acpi</i></li>
+    <li><i>efibootmgr</i></li>
+    <li><i>grub</i></li>
+    <li><i>iwd</i></li>
+    <li><i>polkit</i></li>
+    <li><i>sudo</i></li>
+    <li><i>vim</i></li>
+</ul>
+</div>
+
+<div class="p">Basic services, such as networking and time sync, are all handled by
+<a href="https://wiki.archlinux.org/title/Systemd" target="_blank">systemd</a>.</div>
+
+<h1 id="prepare">Prepare USB Stick</h1>
+
+<div class="p">This bootable Linux USB stick will be compatible with both BIOS and UEFI
+booting modes.  In order for a storage device to boot in BIOS mode, the first
+512 bytes of the device's memory must contain an
+<a href="https://en.wikipedia.org/wiki/Master_boot_record" target="_blank">MBR</a>
+(master boot record).  For a storage device to boot in UEFI mode, a special
+<a href="https://en.wikipedia.org/wiki/EFI_system_partition" target="_blank">EFI</a>
+system partion is required.  Both partitions can be
+created using <i>gdisk</i>.</div>
+
+<div class="p">Before proceeding, determine the device name of the target USB
+drive.  View the currently available block devices before inserting the USB:<br>
+<div class="box"><span class="prompt"># </span>
+lsblk
+</div></div>
+
+<div class="p">Now insert the target flash drive and view the devices again.
+The newly detected device <em>/dev/sdX</em> is the name of the target USB you
+will use for further partitioning and formatting.  Note that in the device name
+you will use is literally <em>/dev/sdX</em> where the only thing that changes
+is the single lowercase letter value of <em>X</em>.  Double check that you have
+the correct device name <em>/dev/sdX</em>, lest you may repartition the
+internal hard drive of the machine you are on!</div>
+
+<h2 id="wipe">wipe</h2>
+
+<div class="p">The process of zeroing out or wiping the target USB is almost
+always optional.  Overwriting the USB with zeros may be needed in rare cases
+when previous data aligns with the newly created partition table.  If you have
+trouble installing a bootloader further on in the installation, you may have to
+come back to this point and wipe your USB before continuing.</div>
+
+<div class="p">Use dd to write the USB with all zeros, permanently erasing all
+data:<br>
+<div class="box"><span class="prompt"># </span>
+dd if=/dev/zero of=<em>/dev/sdX</em> status=progress
+</div><br>
+Expect this to take a relatively long time (hour+) depending on
+the size of the USB.</div>
+
+<h2 id="partition">partition</h2>
+
+<div class="p">Use
+<a href="https://man.archlinux.org/man/sgdisk.8.en" target="_blank">sgdisk</a>
+to create a 10M BIOS partition, a 500M EFI partition, and
+allocate the rest of the USB to a Linux partition:<br>
+<div class="box"><span class="prompt"># </span>
+sgdisk -o -n 1:0:+10M -t 1:EF02 -n 2:0:+500M -t 2:EF00 -n 3:0:0 -t 3:8300 <em>/dev/sdX</em>
+</div></div>
+
+<h2 id="format">format</h2>
+
+<div class="p">View the new block layout of the target USB device:<br>
+<div class="box"><span class="prompt"># </span>
+lsblk <em>/dev/sdX</em>
+<hr>
+<pre>NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
+<em>sdX</em>      8:112  1 14.5G  0 disk
+├─<em>sdX1</em>   8:113  1   10M  0 part
+├─<em>sdX2</em>   8:114  1  500M  0 part
+└─<em>sdX3</em>   8:115  1   14G  0 part</pre>
+</div><br>
+You should now have three blocks on your target USB device: a 10MB block
+<em>/dev/sdX1</em>, a 500MB block <em>/dev/sdX2</em>, and a block for all the
+remaining memory <em>/dev/sdX3</em>.</div>
+
+<div class="p">Do not format the <em>/dev/sdX1</em> block.
+This is the BIOS/MBR partion.</div>
+
+<div class="p">Format the 500MB EFI system partition with a FAT32 filesystem:<br>
+<div class="box"><span class="prompt"># </span>
+mkfs.fat -F32 <em>/dev/sdX2</em>
+</div></div>
+
+<div class="p">Format the Linux partition with an
+<a href="https://en.wikipedia.org/wiki/Ext4" target="_blank">ext4</a>
+filesystem:<br>
+<div class="box"><span class="prompt"># </span>
+mkfs.ext4 <em>/dev/sdX3</em>
+</div></div>
+
+<h1 id="base">Install Base Package Set</h1>
+
+<div class="p">Following the
+<a href="https://wiki.archlinux.org/index.php/Arch_Linux#Principles" target="_blank">Arch Way</a>,
+this guide intends to install the minimum number of packages necessary to
+create a portable working Linux system.</div>
+
+<h2 id="mount">mount</h2>
+
+<div class="p">Mount the ext4 formatted partition as the root filesystem:<br>
+<div class="box"><span class="prompt"># </span>
+mkdir -p /mnt/usb<br>
+<span class="prompt"># </span> mount <em>/dev/sdX3</em> /mnt/usb
+</div></div>
+
+<div class="p">Mount the FAT32 formatted EFI partition to <i>boot</i>:<br>
+
+<div class="box"><span class="prompt"># </span>
+mkdir /mnt/usb/boot<br>
+<span class="prompt"># </span> mount <em>/dev/sdX2</em> /mnt/usb/boot
+</div></div>
+
+<h2 id="pacstrap">pacstrap</h2>
+
+<div class="p">Download and install the Arch Linux base packages:<br>
+<div class="box"><span class="prompt"># </span>
+pacstrap /mnt/usb linux linux-firmware base vim
+</div></div>
+
+<h2 id="fstab">fstab</h2>
+
+<div class="p">Generate a new
+<a href="https://en.wikipedia.org/wiki/Fstab" target="_blank">fstab</a> using
+<a href="https://en.wikipedia.org/wiki/Universally_unique_identifier" target="_blank">UUIDs</a>
+as source identifiers:<br>
+<div class="box"><span class="prompt"># </span>
+genfstab -U /mnt/usb > /mnt/usb/etc/fstab
+</div></div>
+
+<h1 id="configure">Configure New System</h1>
+
+Several additional packages will be installed to support wifi interfaces,
+battery systems, and sudo users.<br>
+<br>
+
+<h2 id="chroot">chroot</h2>
+
+<div class="p">All configuration can be performed within a
+<a href="https://wiki.archlinux.org/index.php/change_root" target="_blank">chroot</a>
+environment.  </div>
+
+<div class="p">Begin by chrooting into the new system:<br>
+<div class="box"><span class="prompt"># </span>
+arch-chroot /mnt/usb
+</div></div>
+
+<div class="p">Inside a chroot the names of block devices may differ from the
+host system.  View the block device list and note the new name of the USB
+device <em>/dev/sdY</em>:<br>
+<div class="box"><span class="prompt"># </span>
+lsblk
+</div> </div>
+
+<h2 id="locale">locale</h2>
+
+<div class="p">Use
+<a href="http://www.tldp.org/LDP/abs/html/tabexpansion.html" target="_blank">tab-completion</a>
+to discover the appropriate entries for <em>region</em> and <em>city</em>:<br>
+<div class="box"><span class="prompt"># </span>
+ln -sf /usr/share/zoneinfo/<em>region</em>/<em>city</em> /etc/localtime
+</div></div>
+
+<div class="p">Generate <i>/etc/adjtime</i>:<br>
+<div class="box"><span class="prompt"># </span>
+hwclock --systohc
+</div></div>
+
+<div class="p">Edit <i>/etc/locale.gen</i> and uncomment your
+desired language (for US English, uncomment <i>en_US.UTF-8 UTF-8</i>):<br>
+<div class="box"><span class="prompt"># </span>
+vim /etc/locale.gen
+</div></div>
+
+<div class="p">Generate the locale information:<br>
+<div class="box"><span class="prompt"># </span>
+locale-gen
+</div></div>
+
+<div class="p">Set the <i>LANG</i> variable in <i>/etc/locale.conf</i> (for US
+English, <em>localeline</em> is <i>en_US.UTF-8</i>):<br>
+<div class="box"><span class="prompt"># </span>
+echo LANG=<em>localeline</em> > /etc/locale.conf
+</div></div>
+
+<h2 id="hostname">hostname</h2>
+
+<div class="p">Create the <i>/etc/hostname</i> file containing
+your desired <a href="https://en.wikipedia.org/wiki/Hostname" target="_blank">valid</a>
+<em>hostname</em> on a single line:<br>
+<div class="box"><span class="prompt"># </span>
+echo <em>hostname</em> > /etc/hostname
+</div></div>
+
+<div class="p">Edit <i>/etc/hosts</i> to contain only the following content:<br>
+<div class="box"><span class="prompt"># </span>
+vim /etc/hosts
+<hr>
+<pre>127.0.0.1    localhost
+::1          localhost
+127.0.1.1    <em>hostname</em>.localdomain    <em>hostname</em></pre>
+</div></div>
+
+<h2 id="mount_options">mount options</h2>
+
+<div class="p">To prevent excess writes to the USB and improve system performance, use the
+<a href=" https://tldp.org/LDP/solrhe/Securing-Optimizing-Linux-RH-Edition-v1.3/chap6sec73.html" target="_blank">noatime</a>
+
+mount option in <a href="https://wiki.archlinux.org/index.php/Fstab"
+target="_blank">fstab</a>.  Open <i>/etc/fstab</i> in an editor and change each
+<i>relatime</i> or <i>atime</i> option to <i>noatime</i>:<br>
+<div class="box"><span class="prompt"># </span>
+vim /etc/fstab
+<hr>
+<pre># <em>/dev/sdY3</em>
+UUID=<em>uuid1</em>  /      ext4  rw,noatime     0 1
+
+# <em>/dev/sdY2</em>
+UUID=<em>uuid2</em>  /boot  vfat  rw,noatime,<em>...</em> 0 2</pre>
+</div></div>
+
+<h2 id="journal_config">journal config</h2>
+
+<div class="p">To prevent the systemd journal service from writing to
+the USB, change the storage settings in
+<a href="https://man.archlinux.org/man/journald.conf.5" target="_blank">journald.conf</a>.
+Edit a drop-in file to contain the following content:<br>
+<div class="box"><span class="prompt"># </span>
+mkdir -p /etc/systemd/journald.conf.d<br>
+<span class="prompt"># </span> vim /etc/systemd/journald.conf.d/10-volatile.conf
+<hr>
+<pre>[Journal]
+Storage=volatile
+SystemMaxUse=16M
+RuntimeMaxUse=32M</pre>
+</div></div>
+
+<h2 id="bootloader">bootloader</h2>
+
+<div class="p">The <a href="https://en.wikipedia.org/wiki/GNU_GRUB" target="_blank">GRUB</a>
+<a href="https://wiki.archlinux.org/index.php/Category:Boot_loaders" target="_blank">bootloader</a>
+along with
+<a href="https://wiki.archlinux.org/title/Unified_Extensible_Firmware_Interface#efibootmgr" target="_blank">efibootmgr</a>
+will enable the USB to boot in both BIOS and UEFI boot modes.</div>
+
+<div class="p">Install the <i>grub</i> and <i>efibootmgr</i> packages:<br>
+<div class="box"><span class="prompt"># </span>
+pacman -S grub efibootmgr
+</div></div>
+
+<div class="p">Install GRUB for MBR/BIOS booting mode:<br>
+<div class="box"><span class="prompt"># </span>
+grub-install --target=i386-pc --boot-directory /boot --removable <em>/dev/sdY</em>
+</div></div>
+
+<div class="p">Install GRUB for UEFI booting mode:<br>
+<div class="box"><span class="prompt"># </span>
+grub-install --target=x86_64-efi --efi-directory /boot --boot-directory /boot --removable
+</div></div>
+
+<div class="p">Generate a GRUB configuration:<br>
+<div class="box"><span class="prompt"># </span>
+grub-mkconfig -o /boot/grub/grub.cfg
+</div></div>
+
+<h2 id="interface_names">network interface names</h2>
+
+<div class="p">To ensure that the main ethernet and wifi interfaces will always be named
+<i>eth0</i> and <i>wlan0</i>, revert to traditional device naming:<br>
+<div class="box"><span class="prompt"># </span>
+ln -s /dev/null /etc/udev/rules.d/80-net-setup-link.rules
+</div></div>
+
+<h2 id="networking">networking</h2>
+
+<div class="p">Create a new
+<a href="https://wiki.archlinux.org/title/systemd-networkd" target="_blank">systemd-networkd</a>
+configuration file with the following content to automatically
+establish wired network connections:<br>
+<div class="box"><span class="prompt"># </span>
+vim /etc/systemd/network/20-ethernet.network
+<hr>
+<pre>[Match]
+Name=en*
+Name=eth*
+
+[Network]
+DHCP=yes
+IPv6PrivacyExtensions=yes
+
+[DHCPv4]
+RouteMetric=100
+
+[IPv6AcceptRA]
+RouteMetric=100</pre>
+</div></div>
+
+<div class="p">Enable
+<a href="https://wiki.archlinux.org/title/systemd-networkd" target="_blank">networkd</a>
+and
+<a href="https://wiki.archlinux.org/title/Systemd-resolved" target="_blank">resolved</a>:<br>
+<div class="box"><span class="prompt"># </span>
+systemctl enable systemd-networkd.service<br>
+<span class="prompt"># </span> systemctl enable systemd-resolved.service
+</div></div>
+
+<div class="p">Install and enable <i>iwd</i> to allow user control over wireless interfaces:<br>
+<div class="box"><span class="prompt"># </span>
+pacman -S iwd<br>
+<span class="prompt"># </span> systemctl enable iwd.service
+</div></div>
+
+<div class="p">Copy the wired network configuration file and edit it to the
+following to handle wifi interfaces:<br>
+<div class="box"><span class="prompt"># </span>
+cp /etc/systemd/network/20-ethernet.network /etc/systemd/network/20-wlan.network<br>
+<span class="prompt"># </span> vim /etc/systemd/network/20-wlan.network
+<hr>
+<pre>[Match]
+Name=wl*
+
+[Network]
+DHCP=yes
+IPv6PrivacyExtensions=yes
+
+[DHCPv4]
+RouteMetric=600
+
+[IPv6AcceptRA]
+RouteMetric=600</pre>
+</div></div>
+
+<div class="p">Enable network time synchronization:<br>
+<div class="box"><span class="prompt"># </span>
+systemctl enable systemd-timesyncd.service
+</div></div>
+
+<h2 id="battery">battery support</h2>
+
+<div class="p">Install support for checking battery charge and state:<br>
+<div class="box"><span class="prompt"># </span>
+pacman -S acpi
+</div></div>
+
+<h2 id="root">root password</h2>
+
+<div class="p">Set the root password:<br>
+<div class="box"><span class="prompt"># </span>
+passwd
+</div></div>
+
+<h2 id="user">user account</h2>
+
+<div class="p">Create a new user account and set its password:<br>
+<div class="box"><span class="prompt"># </span>
+useradd -m <em>user</em><br>
+<span class="prompt"># </span>
+passwd <em>user</em>
+</div></div>
+
+<h2 id="sudo">sudo</h2>
+
+<div class="p">Install <a href="https://wiki.archlinux.org/index.php/sudo" target="_blank">sudo</a>:<br>
+<div class="box"><span class="prompt"># </span>
+pacman -S sudo
+</div></div>
+
+<div class="p">Enable sudo for the sudo group by creating a new rule in <i>/etc/sudoers.d/</i>:<br>
+<div class="box"><span class="prompt"># </span>
+EDITOR=vim visudo /etc/sudoers.d/10-sudo
+<hr>
+%sudo ALL=(ALL) ALL
+</div></div>
+
+<div class="p">Ensure the sudo group exists and that <em>user</em> is a member of it:<br>
+<div class="box"><span class="prompt"># </span>
+groupadd sudo<br>
+<span class="prompt"># </span>usermod -aG sudo <em>user</em>
+</div></div>
+
+<div class="p">Install <i>polkit</i> to allow various commands (<i>reboot</i>
+and <i>shutdown</i>, among others) to be run by non-root users:<br>
+<div class="box"><span class="prompt"># </span>
+pacman -S polkit
+</div></div>
+
+<h2 id="logout">logout</h2>
+
+<div class="p">Logout of the chroot:<br>
+<div class="box"><span class="prompt"># </span>
+exit
+</div></div>
+
+<div class="p">Unmount the USB:<br>
+<div class="box"><span class="prompt"># </span>
+umount /mnt/usb/boot /mnt/usb &amp;&amp; sync
+</div></div>
+
+<h1 id="complete">Installation Complete!</h1>
+
+<div class="p">Welcome to Arch Linux!  First
+time users should probably checkout the ArchWiki's
+<a href="https://wiki.archlinux.org/index.php/general_recommendations"
+target="_blank">general recommendations</a>.</div>
+
+</body>
+</html>
