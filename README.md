@@ -73,7 +73,7 @@ ServerArguments=-nolisten tcp -dpi 96
 sudo pacman -S pipewire-pulse
 ```
 and let it replace PulseAudio.
-[Hat Tip](https://www.reddit.com/r/archlinux/comments/unfa71/youtube_videos_wont_load_when_using_any_browser/)
+[Hat Tip](https://www.reddit.com/r/archlinux/comments/unfa71/youtube_videos_wont_load_when_using_any_browser/).
 
 ## Sync System Clock
 
