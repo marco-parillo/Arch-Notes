@@ -115,6 +115,15 @@ GRUB_DISABLE_OS_PROBER=false
 $ sudo pacman -S xorg-xinput 
 ```
 
+
+## Dell Touch Pad?
+Maybe https://wiki.archlinux.org/title/Libinput
+
+```
+$ sudo pacman -S xorg-xinput 
+```
+
+
 ## ThinkPad Fan
 [Install](https://wiki.archlinux.org/index.php/Lenovo_ThinkPad_T420#Fans) from the AUR [thinkfan](https://aur.archlinux.org/packages/thinkfan/).
 ```
