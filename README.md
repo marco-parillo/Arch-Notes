@@ -9,7 +9,7 @@
 4. Add [XDG user directories](https://archlinux.org/packages/?name=xdg-user-dirs)
 
 ```
-pacstrap /mnt base linux linux-firmware intel-ucode vim sudo grub xdg-user-dirs plasma-meta kde-applications-meta sddm-kcm
+pacstrap /mnt base linux linux-firmware intel-ucode vim sudo grub plasma-meta kde-applications-meta sddm-kcm
 ```
 
 ### Do I need to set the local hostname and localhost by configuring the hosts(5) file?
