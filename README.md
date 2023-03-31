@@ -144,6 +144,10 @@ polkit.addRule(function(action, subject) {
 escape :wq
 ```
 
+## Pacman Bad GPG Keys
+
+If updating the archlinux-keyring does not work, delete any .sig or .sig.part files for the official repos you have in /var/lib/pacman/sync/
+
 ## Printing
 
 ```
