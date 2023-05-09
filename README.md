@@ -95,6 +95,8 @@ Note hunspell was already installed as a dependency.
 $ sudo pacman -S git
 $ sudo pacman -S base-devel --needed
 ```
+## Fonts
+[atkinson-hyperlegible-font](https://archlinux.org/packages/community/any/ttf-atkinson-hyperlegible/)
 
 ## Virtualization
 KVM (the built-in Linux hypervisor) with [libvirt](https://wiki.archlinux.org/title/Libvirt) via virt-manager. 
