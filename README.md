@@ -152,6 +152,20 @@ If updating the archlinux-keyring does not work, delete any .sig or .sig.part fi
 
 ## Printing
 
+### Try this first
+
+```
+$ sudo pacman -S python-pyqt5 cups hplip
+$ systemctl enable cups.service
+Created symlink /etc/systemd/system/printer.target.wants/cups.service → /usr/lib/systemd/system/cups.service.
+Created symlink /etc/systemd/system/sockets.target.wants/cups.socket → /usr/lib/systemd/system/cups.socket.
+Created symlink /etc/systemd/system/multi-user.target.wants/cups.path → /usr/lib/systemd/system/cups.path.
+$ systemctl start cups.service
+$ hp-setup -u
+```
+
+### Full List
+
 ```
 Optional dependencies for imagemagick
     ghostscript: PS/PDF support [installed]
