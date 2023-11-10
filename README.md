@@ -150,6 +150,10 @@ escape :wq
 
 If updating the archlinux-keyring does not work, delete any .sig or .sig.part files for the official repos you have in /var/lib/pacman/sync/
 
+## Plasma 6
+
+with sddm-qt6 and alpha packages from kde-unstable everything is good on arch
+
 ## Printing
 
 ### Try this first
