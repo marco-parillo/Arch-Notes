@@ -56,7 +56,7 @@ IF: wlo1 state: up mac:
 
 ```
 useradd -m mparillo
-pacman -S sudo
+passwd mparillo
 EDITOR=vim visudo
 usermod –aG wheel mparillo
 ```
