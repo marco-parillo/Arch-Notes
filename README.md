@@ -8,6 +8,12 @@
 3. Add [efibootmgr](https://wiki.archlinux.org/index.php/GRUB#Installation_2)
 4. Add [XDG user directories](https://archlinux.org/packages/?name=xdg-user-dirs)
 
+### Make the text bigger.
+```
+setfont -d
+```
+
+### Install most commonly-used packages.
 ```
 pacstrap /mnt base linux linux-firmware intel-ucode vim sudo grub plasma-meta kde-applications-meta plasma-wayland-session
 ```
