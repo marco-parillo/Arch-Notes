@@ -228,3 +228,4 @@ $ systemctl start cups.service
 $ hp-setup -u
 
 ```
+FWIW, choosing the IPP listing for the device is best.
