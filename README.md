@@ -15,7 +15,7 @@ setfont -d
 
 ### Install most commonly-used packages.
 ```
-pacstrap /mnt base linux linux-firmware intel-ucode vim sudo grub plasma-meta kde-applications-meta plasma-wayland-session
+pacstrap /mnt base linux linux-firmware intel-ucode vim sudo grub plasma-meta kde-applications-meta openssh
 ```
 
 ### Do I need to set the local hostname and localhost by configuring the hosts(5) file?
@@ -36,7 +36,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 ```
 systemctl enable NetworkManager.service
-systemctl enable sddm.service
+systemctl enable plasmalogin.service
 ```
 
 ### Wireless (WPA/WPA2 Personal):
